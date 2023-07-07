@@ -10,15 +10,20 @@ def Description():
     return 'Voici la description de notre projet'
 
 def police():
-    return 'Calibri' + sizepolice()
-
-def sizepolice():
-    return '24'
-
+    return 'Calibri 12'
 if __name__ == "__main__":
     window = tk.Tk()
-    window.title("Présentation")
+    window.title("Presentation")
+    window.geometry('1920x1080')
     string = {str : Description, 'plc' : police}
-    label = ttk.Label(master= window, text=string[str](), font=string['plc']())
-    label.pack()
+    #label
+
+    title= ttk.Label(master= window, text='Présentation', font=string['plc']() +' bold')
+    title.pack()
+
+    #input field
+    input_frame = ttk.Frame(master=window)
+    text = ttk.Label(master=input_frame, text= string[str](), font= string['plc']())
+    text.pack(side= 'bottom')
+    input_frame.pack(pady=50)
     window.mainloop()
