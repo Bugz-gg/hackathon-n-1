@@ -17,28 +17,28 @@ class MainPage:
             self.master.destroy()  # Fermer la fenêtre principale
 
             new_window = Tk()
-            DiscussionPage(new_window)
+            Page(new_window, "Discussion")
             new_window.mainloop()
 
         def open_stats():
             self.master.destroy()  # Fermer la fenêtre principale
 
             new_window = Tk()
-            StatsPage(new_window)
+            Page(new_window, "Stats")
             new_window.mainloop()
 
         def open_settings():
             self.master.destroy()  # Fermer la fenêtre principale
 
             new_window = Tk()
-            SettingsPage(new_window)
+            Page(new_window, "Settings")
             new_window.mainloop()
 
         def open_presentation():
             self.master.destroy()  # Fermer la fenêtre principale
 
             new_window = Tk()
-            PresentationPage(new_window)
+            Page(new_window, "Presentation")
             new_window.mainloop()
 
         #Création du header, donc de la frame
@@ -66,57 +66,20 @@ class MainPage:
         presentation_button=Button(frame, text="Presentation", font=("Helvetica", 25), bg='#41B77F', fg='black', command=open_presentation)
         presentation_button.pack()
 
-class DiscussionPage:
-    def __init__(self, master):
-        self.master = master
-        self.create_widgets()
 
-    def create_widgets(self):
+class Page:
+    def __init__(self, master, title):
+        self.master = master
+        self.create_widgets(title)
+
+    def create_widgets(self, title):
         #Personnaliser la fenêtre
-        self.master.title('Discussion')
+        self.master.title(title)
         self.master.minsize(720,480)
         self.master.config(background='#41B77F')
 
         # ...
 
-class StatsPage:
-    def __init__(self, master):
-        self.master = master
-        self.create_widgets()
-
-    def create_widgets(self):
-        #Personnaliser la fenêtre
-        self.master.title('Stats')
-        self.master.minsize(720,480)
-        self.master.config(background='#41B77F')
-
-        # ...
-
-class SettingsPage:
-    def __init__(self, master):
-        self.master = master
-        self.create_widgets()
-
-    def create_widgets(self):
-        #Personnaliser la fenêtre
-        self.master.title('Settings')
-        self.master.minsize(720,480)
-        self.master.config(background='#41B77F')
-
-        # ...
-
-class PresentationPage:
-    def __init__(self, master):
-        self.master = master
-        self.create_widgets()
-
-    def create_widgets(self):
-        #Personnaliser la fenêtre
-        self.master.title('Presentation')
-        self.master.minsize(720,480)
-        self.master.config(background='#41B77F')
-
-        # ...
 
 #Création de la fenêtre d'accueil
 root = Tk()
