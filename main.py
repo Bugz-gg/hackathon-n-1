@@ -1,6 +1,9 @@
 import tkinter as tk
+from tkinter import ttk
+
+#main
 
 
-if __name__ == "main":
-    window = tk.Tk()
-    window.mainloop()
+
+if __name__ == "__main__":
+    print("main")
