@@ -90,8 +90,8 @@ class Page:
 
         # ...
 
-
-#Création de la fenêtre d'accueil
-root = ttk.Window(themename='darkly')
-main_page = MainPage(root, "Main page")
-root.mainloop()
+if '__main__' == __name__:
+    #Création de la fenêtre d'accueil
+    root = ttk.Window(themename='darkly')
+    main_page = MainPage(root, "Main page")
+    root.mainloop()
