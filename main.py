@@ -34,11 +34,26 @@ class Page:
 
         #Ajout de texte (penser à mettre le même fond que la fenêtre pour ne pas voir le rectangle)
         #Catégories Discussion, Statistiques, Réglages, Présentation
-        label_title = Label(frame, text="Template Header", font=("Helvetica", 40))
-        label_title.pack()
+        
+        # Set the flag variables to track initialization
+        label_title_initialized = False
+        # label_subtitle_initialized = False
 
-        label_subtitle = Label(self.master, text="Template header to help the user figure out how the interface is looking", font=("Helvetica", 20), bg='#41B77F', fg='black')
-        label_subtitle.pack(side=TOP, pady=25)
+        if not label_title_initialized:
+            label_title = Label(frame, text=self.title , font=("Helvetica", 40), bg='#41B77F', fg='black')
+            label_title.pack()
+            label_title_initialized = True
+        else:
+            label_title.pack_forget()
+
+        # if not label_subtitle_initialized:
+        #     label_subtitle = Label(frame, text="Template header to help the user figure out how the interface is looking", font=("Helvetica", 20), bg='#41B77F', fg='black')
+        #     label_subtitle.pack(side=TOP, pady=25)
+        #     label_subtitle_initialized = True
+        # else:
+        #     label_subtitle.pack_forget()
+
+
 
         #Ajout des boutons amenant aux différentes pages
 
@@ -51,9 +66,18 @@ def main_content():
     pass
 
 def discussion_content():
-    label_subtitle = Label(root.master, text="Nani ga.",
-                           font=("Helvetica", 20), bg='#41B77F', fg='black')
-    label_subtitle.pack(side=TOP, pady=25)
+    # Make a entry where the user can put words
+    new_lab = Label(root.master,  bg='#41B77F', fg='black')
+    
+    entry_string = StringVar()
+    entry = ttk.Entry(new_lab, textvariable= entry_string)
+    submit_button = ttk.Button(new_lab, text='submit', command= lambda :output_string.set(entry_string.get()))
+    entry.pack(side='left')
+    submit_button.pack(side='left', padx=10)
+    new_lab.pack(side=TOP)
+    output_string = StringVar()
+    output = Label(master= root.master, textvariable= output_string, bg='#41B77F', fg='black')
+    output.pack()
     pass
 
 def stats_content():
