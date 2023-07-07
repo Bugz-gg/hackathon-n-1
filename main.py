@@ -42,30 +42,33 @@ class MainPage:
             new_window.mainloop()
 
         #Création du header, donc de la frame
-        frame=Frame(self.master, bg='#41B77F')
-        frame.pack(side=TOP)
+        frame=Frame(self.master)
+        buttons_frame = Frame(self.master)
 
-        #Ajout de texte (penser à mettre le même fond que la fenêtre pour ne pas voir le rectangle)
-        #Catégories Discussion, Statistiques, Réglages, Présentation
+        #Ajout des boutons amenant aux différentes pages
+        discussion_button=ttk.Button(buttons_frame, text="Discussion", command=open_discussion)
+        discussion_button.pack(side=LEFT)
+
+        statistic_button=ttk.Button(buttons_frame, text="Stats", command=open_stats)
+        statistic_button.pack(side=LEFT)
+
+        settings_button=ttk.Button(buttons_frame, text="Settings", command=open_settings)
+        settings_button.pack(side=LEFT)
+
+        presentation_button=ttk.Button(buttons_frame, text="Presentation", command=open_presentation)
+        presentation_button.pack(side=LEFT)
+
+        buttons_frame.pack(side=TOP)
+
+#Ajout de texte (penser à mettre le même fond que la fenêtre pour ne pas voir le rectangle)
+#Catégories Discussion, Statistiques, Réglages, Présentation
         label_title = Label(frame, text="Template Header", font=("Helvetica", 40), bg='#41B77F', fg='black')
         label_title.pack()
 
+        frame.pack(side=TOP)
+
         label_subtitle = Label(self.master, text="Template header to help the user figure out how the interface is looking", font=("Helvetica", 20), bg='#41B77F', fg='black')
         label_subtitle.pack(side=TOP, pady=25)
-
-        #Ajout des boutons amenant aux différentes pages
-        discussion_button=ttk.Button(frame, text="Discussion", command=open_discussion)
-        discussion_button.pack(side=LEFT)
-
-        statistic_button=ttk.Button(frame, text="Stats", command=open_stats)
-        statistic_button.pack(side=LEFT)
-
-        settings_button=ttk.Button(frame, text="Settings", command=open_settings)
-        settings_button.pack(side=LEFT)
-
-        presentation_button=ttk.Button(frame, text="Presentation", command=open_presentation)
-        presentation_button.pack(side=LEFT)
-
 
 class Page:
     def __init__(self, master, title):
