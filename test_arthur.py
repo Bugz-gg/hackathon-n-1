@@ -1,45 +1,30 @@
 from tkinter import *
 import ttkbootstrap as ttk
 
-class MainPage:
-    def __init__(self, master, title):
-        self.master = master
-        self.create_widgets(title)
 
-    def create_widgets(self, title):
+class Page:
+    def __init__(self, master, title, content):
+        self.master = master
+        self.title = title
+        self.create_widgets(title, content)
+
+    def load_buttons(self, button_frame, disabled: str = None):
+        for title in ["Discussion", "Stats", "Settings", "Presentation"]:
+            if disabled == title:
+                print("tamaga desu")
+                button = ttk.Button(button_frame, text=title, command=lambda x=title:open_page(title), state="disabled")
+            else:
+                button = ttk.Button(button_frame, text=title, command=lambda x=title:open_page(title), state="enabled")
+            button.pack(side=LEFT)
+
+    def create_widgets(self, title, content):
         #Personnaliser la fenêtre
         self.master.title(title)
         self.master.minsize(720,480)
         #self.master.config(background='#41B77F')
 
         #Définition des fonctions qui amènent aux différentes pages
-        def open_discussion():
-            self.master.destroy() # Fermer la fenêtre principale
 
-            new_window = ttk.Window(themename='darkly')
-            Page(new_window, "Discussion")
-            new_window.mainloop()
-
-        def open_stats():
-            self.master.destroy() # Fermer la fenêtre principale
-
-            new_window = ttk.Window(themename='darkly')
-            Page(new_window, "Stats")
-            new_window.mainloop()
-
-        def open_settings():
-            self.master.destroy() # Fermer la fenêtre principale
-
-            new_window = ttk.Window(themename='darkly')
-            Page(new_window, "Settings")
-            new_window.mainloop()
-
-        def open_presentation():
-            self.master.destroy() # Fermer la fenêtre principale
-
-            new_window = ttk.Window(themename='darkly')
-            Page(new_window, "Presentation")
-            new_window.mainloop()
 
         #Création du header, donc de la frame
         button_frame=Frame(self.master)
@@ -58,40 +43,78 @@ class MainPage:
         label_subtitle.pack(side=TOP, pady=25)
 
         #Ajout des boutons amenant aux différentes pages
-        discussion_button=ttk.Button(button_frame, text="Discussion", command=open_discussion)
-        discussion_button.pack(side=LEFT)
+        self.load_buttons(button_frame, self.title)
 
-        statistic_button=ttk.Button(button_frame, text="Stats", command=open_stats)
-        statistic_button.pack(side=LEFT)
+        content()
 
-        settings_button=ttk.Button(button_frame, text="Settings", command=open_settings)
-        settings_button.pack(side=LEFT)
+def main_content():
+    label_subtitle = Label(root.master, text="Appuyez sur une touche. (Ça ne fait rien et c'est normal.)",
+                           font=("Helvetica", 20), bg='#41B77F', fg='black')
+    label_subtitle.pack(side=TOP, pady=25)
+    pass
 
-        presentation_button=ttk.Button(button_frame, text="Presentation", command=open_presentation)
-        presentation_button.pack(side=LEFT)
+def discussion_content():
+    label_subtitle = Label(displayed_page.master, text="Nani ga.",
+                           font=("Helvetica", 20), bg='#41B77F', fg='black')
+    label_subtitle.pack(side=TOP, pady=25)
+    pass
+
+def stats_content():
+    label_subtitle = Label(displayed_page.master, text="Check your stats.",
+                           font=("Helvetica", 20), bg='#41B77F', fg='black')
+    label_subtitle.pack(side=TOP, pady=25)
+    pass
+def settings_content():
+    label_subtitle = Label(displayed_page.master, text="Settings are here.",
+                           font=("Helvetica", 20), bg='#41B77F', fg='black')
+    label_subtitle.pack(side=TOP, pady=25)
+    pass
+def presentation_content():
+    #label_subtitle.pack_forget()
+    label_subtitle = Label(displayed_page.master, text="Presentation time.",
+                           font=("Helvetica", 20), bg='#41B77F', fg='black')
+    label_subtitle.pack(side=TOP, pady=25)
+    pass
 
 
-class Page:
-    def __init__(self, master, title):
-        self.master = master
-        self.create_widgets(title)
+get_content = {"Main": main_content, "Discussion": discussion_content, "Stats": stats_content, "Settings": settings_content, "Presentation": presentation_content}
 
-    def create_widgets(self, title):
-        """
 
-        :param title: The title of the widget.
-        :param content_func: A function that
-        :return:
-        """
-        #Personnaliser la fenêtre
-        self.master.title(title)
-        self.master.minsize(720,480)
-        #self.master.config(background='#41B77F')
+#Création de la fenêtre d'accueil
+root = ttk.Window(themename='darkly')
+displayed_page = Page(root, "Main page", main_content)
 
-        # ...
 
-if '__main__' == __name__:
-    #Création de la fenêtre d'accueil
-    root = ttk.Window(themename='darkly')
-    main_page = MainPage(root, "Main page")
-    root.mainloop()
+def open_discussion(master):
+    master.destroy() # Fermer la fenêtre principale
+
+    new_window = ttk.Window(themename='darkly')
+    Page(new_window, "Discussion")
+    new_window.mainloop()
+
+def open_stats(master):
+    master.destroy() # Fermer la fenêtre principale
+
+    new_window = ttk.Window(themename='darkly')
+    Page(new_window, "Stats")
+    new_window.mainloop()
+
+def open_settings(master):
+    master.destroy() # Fermer la fenêtre principale
+
+    new_window = ttk.Window(themename='darkly')
+    Page(new_window, "Settings")
+    new_window.mainloop()
+
+def open_page(title):
+    global displayed_page
+    displayed_page.master.destroy() # Fermer la fenêtre principale
+    new_window = ttk.Window(themename='darkly')
+    displayed_page = Page(new_window, title, get_content[title])
+    new_window.mainloop()
+
+
+
+
+
+root.mainloop()
