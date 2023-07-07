@@ -14,24 +14,26 @@ class Application:
         
 
     def open_discussion(self):
-        self.master = Toplevel(self.master)
-        self.master.title("Discussion")
+        self.master.destroy()
+        self.master = Application('Discussion')
+        self.run()
 
     def open_stats(self):
-        self.master = Toplevel(self.master)
-        self.master.title("Statistiques")
+        self.master.destroy()
+        self.master = Application('Statistiques')
+        self.run()
         
 
     def open_settings(self):
-        self.master = Toplevel(self.master)
-        self.master.title("Paramètres")
-        
+        self.master.destroy()
+        self.master = Application('Paramètres')
+        self.run()
 
     def open_presentation(self):
-        self.master = Toplevel(self.master)
-        self.master.title("Présentation")
+        self.master.destroy()
+        self.master = Application('Présentation')
+        self.run()
 
-    
     def build_buttons(self):
         ttk.Button(self.buttons_frame, text="Discussion", command=self.open_discussion).pack(side=LEFT)
         ttk.Button(self.buttons_frame, text="Statistiques", command=self.open_stats).pack(side=LEFT)
