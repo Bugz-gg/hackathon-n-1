@@ -1,12 +1,12 @@
 from tkinter import *
 import ttkbootstrap as ttk
 
-
 #Création de la fenêtre d'accueil
 master = ttk.Window(themename= 'darkly')
 
 #Personnaliser la fenêtre
 master.title('Main page')
+master.attributes('-fullscreen', True)
 master.minsize(720,480)
 #master.iconbitmap("images/logo_icon.ico")
 
@@ -36,10 +36,12 @@ def open_presentation():
         code = file.read()
         exec(code)
 
-#Création du header, donc de la frame
+#Création des différentes frames
 buttons_frame=ttk.Frame(master)
 title_frame=ttk.Frame(master)
+exit_frame=ttk.Frame(master)
 
+#Ajout du titre
 label_title = ttk.Label(title_frame, text="Template Header", font="Helvetica 25")
 label_title.pack(pady=10)
 
@@ -56,9 +58,15 @@ settings_button.pack(side='left', pady=30)
 presentation_button=ttk.Button(buttons_frame, text="Presentation", command=open_presentation)
 presentation_button.pack(side='left', pady=30)
 
+#Ajout du bouton quitter
+exit_button=ttk.Button(buttons_frame, text="Exit", command=master.destroy)
+exit_button.pack(side=TOP, padx=100, pady=30)
+
+#Disposition des frames sur la page
 buttons_frame.pack(side=TOP)
 title_frame.pack(side=TOP)
 
+#Ajout du sous-titre
 label_subtitle = ttk.Label(master, text="Template header to help the user figure out how the interface is looking", font="Helvetica 12")
 label_subtitle.pack(side=TOP, pady=50)
 
