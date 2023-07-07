@@ -4,35 +4,48 @@ import ttkbootstrap as ttk
 #Création de la fenêtre d'accueil
 master = ttk.Window(themename= 'darkly')
 
+#Chargement des différentes images
+img_disc= PhotoImage(file="images/discussion.png")
+img_stat= PhotoImage(file="images/statistique.png")
+img_reglages= PhotoImage(file="images/reglages.png")
+img_pres= PhotoImage(file="images/presentation.png")
+img_exit= PhotoImage(file="images/se-deconnecter.png")
+
+#Création d'un label pour chaque image
+label_disc=ttk.Label(master, image=img_disc)
+label_stat=ttk.Label(master, image=img_stat)
+label_reglages=ttk.Label(master, image=img_reglages)
+label_pres=ttk.Label(master, image=img_pres)
+label_exit=ttk.Label(master, image=img_exit)
+
 #Personnaliser la fenêtre
 master.title('Main page')
 master.attributes('-fullscreen', True)
 master.minsize(720,480)
 #master.iconbitmap("images/logo_icon.ico")
 
-
 #Définition des fonctions qui amènent aux différentes pages
 def open_discussion():
     with open("discussion.py", "r") as file:
-        master.destroy()
+        master.withdraw()
         code = file.read()
         exec(code)
 
 def open_stats():
     with open("stats.py", "r") as file:
-        master.destroy()
+        master.withdraw()
         code = file.read()
         exec(code)
 
 def open_settings():
     with open("settings.py", "r") as file:
-        master.destroy()
+        master.withdraw()
         code = file.read()
         exec(code)
 
 def open_presentation():
     with open("presentation.py", "r") as file:
-        master.destroy()
+        master.withdraw()
         code = file.read()
         exec(code)
 
