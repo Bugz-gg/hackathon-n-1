@@ -4,7 +4,7 @@ from tkinter import *
 master = Tk()
 
 #Personnaliser la fenêtre
-master.title('Accueil')
+master.title('Discussion')
 master.minsize(720,480)
 master.iconbitmap("images/logo_icon.ico")
 master.config(background='#41B77F')
@@ -14,21 +14,31 @@ frame=Frame(master, bg='#41B77F')
 frame.pack(side=TOP)
 
 #Ajout de texte (penser à mettre le même fond que la fenêtre pour ne pas voir le rectangle)
-#Catégories Discussions, Statistiques, Réglages, Présentation
-label_title = Label(frame, text="Discussions", font=("Helvetica", 40), bg='#41B77F', fg='black')
-label_title.pack(side="top")
+#Catégories Discussion, Statistiques, Réglages, Présentation
+label_title = Label(frame, text="Discussion", font=("Helvetica", 40), bg='#41B77F', fg='black')
+label_title.pack()
 
-label_title = Label(frame, text="Statistiques", font=("Helvetica", 40), bg='#41B77F', fg='black')
-label_title.pack(side="top")
+label_subtitle = Label(master, text="Discussion page with the robot", font=("Helvetica", 20), bg='#41B77F', fg='black')
+label_subtitle.pack(side=TOP, pady=25)
 
-label_title = Label(frame, text="Règlages", font=("Helvetica", 40), bg='#41B77F', fg='black')
-label_title.pack(side="top")
+#Ajout des boutons amenant aux différentes pages
+discussion_button=Button(frame, text="Discussion", font=("Helvetica", 25), bg='#41B77F', fg='black')
+discussion_button.pack()
 
-label_title = Label(frame, text="Présentartion", font=("Helvetica", 40), bg='#41B77F', fg='black')
-label_title.pack(side="top")
+statistic_button=Button(frame, text="Stats", font=("Helvetica", 25), bg='#41B77F', fg='black')
+statistic_button.pack()
+
+settings_button=Button(frame, text="Settings", font=("Helvetica", 25), bg='#41B77F', fg='black')
+settings_button.pack()
+
+presentation_button=Button(frame, text="Presentation", font=("Helvetica", 25), bg='#41B77F', fg='black')
+presentation_button.pack()
 
 #Afficher la fenêtre
 master.mainloop()
+
+#Définition des fonctions qui amènent aux différentes pages
+def open_discussion():
 
 if __name__ == "__main__":
     print("main")
