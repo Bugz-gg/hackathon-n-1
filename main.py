@@ -35,8 +35,6 @@ frame=Frame(master, bg='#41B77F')
 
 label_title = Label(frame, text="Template Header", font=("Helvetica", 40), bg='#41B77F', fg='black')
 label_title.pack(pady=10)
-#Ajout de texte (penser à mettre le même fond que la fenêtre pour ne pas voir le rectangle)
-#Catégories Discussion, Statistiques, Réglages, Présentation
 
 #Ajout des boutons amenant aux différentes pages
 discussion_button=Button(frame, text="Discussion", font=("Helvetica", 25), bg='#41B77F', fg='black', command=open_discussion)
@@ -51,7 +49,6 @@ settings_button.pack(side='left', pady=30)
 presentation_button=Button(frame, text="Presentation", font=("Helvetica", 25), bg='#41B77F', fg='black', command=open_presentation)
 presentation_button.pack(side='left', pady=30)
 frame.pack(side=TOP)
-
 
 
 label_subtitle = Label(master, text="Template header to help the user figure out how the interface is looking", font=("Helvetica", 20), bg='#41B77F', fg='black')
