@@ -10,7 +10,7 @@ if __name__ == "__main__":
     dic["master"] = window
 
     window.title("Presentation")
-    window.geometry('1920x1080')
+    window.attributes('-fullscreen', True)
     #button
     buttons_frame = ttk.Frame(window)
     title_frame = ttk.Frame(window)

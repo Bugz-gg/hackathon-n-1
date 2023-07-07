@@ -10,7 +10,7 @@ if __name__ == "__main__":
     dic["master"] = window
 
     window.title("Discussion")
-    window.geometry('1920x1080')
+    master.attributes('-fullscreen', True)
     #button
     buttons_frame = ttk.Frame(window)
     title_frame = ttk.Frame(window)
@@ -28,7 +28,7 @@ if __name__ == "__main__":
     settings_button.pack(side='left', pady=30)
 
     presentation_button = ttk.Button(
-        buttons_frame, text="Presentation", command= dic["open_presentation"], state= 'disabled')
+        buttons_frame, text="Presentation", command= dic["open_presentation"])
     presentation_button.pack(side='left', pady=30)
     buttons_frame.pack(side=TOP)
 

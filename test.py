@@ -10,7 +10,7 @@ dic = {'master': TypeError}
 #Définition des fonctions qui amènent aux différentes pages
 def open_discussion(master):
     with open("discussion.py", "r") as file:
-        master.destroy()
+        master.withdraw()
         code = file.read()
         exec(code)
 
@@ -21,7 +21,7 @@ dic["open_discussion"] = discussion
 
 def open_stats(master):
     with open("stats.py", "r") as file:
-        master.destroy()
+        master.withdraw()
         code = file.read()
         exec(code)
 
@@ -32,7 +32,7 @@ dic["open_stats"] = start
 
 def open_settings(master):
     with open("settings.py", "r") as file:
-        master.destroy()
+        master.withdraw()
         code = file.read()
         exec(code)
 
@@ -43,8 +43,8 @@ dic["open_settings"] = settings
 
 
 def open_presentation(master):
-    master.destroy()
     with open("presentation.py", "r") as file:
+        master.withdraw()
         code = file.read()
         exec(code)
 
@@ -61,9 +61,8 @@ if __name__ == "__main__":
     dic["master"] = master
     #Personnaliser la fenêtre
     master.title('Main page')
-    master.minsize(720,480)
-    #master.iconbitmap("images/logo_icon.ico")
-        #Création du header, donc de la frame
+    master.attributes('-fullscreen', True)
+    #Création du header, donc de la frame
     buttons_frame=ttk.Frame(master)
     title_frame=ttk.Frame(master)
 
