@@ -33,7 +33,6 @@ if __name__ == "__main__":
     buttons_frame.pack(side=TOP)
 
     #label
-
     title= ttk.Label(master= window, text='Presentation', font="Helvetica 12" +' bold')
     title.pack()
 

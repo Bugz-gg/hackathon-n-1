@@ -1,9 +1,6 @@
-import tkinter as tk
+from tkinter import *
 import ttkbootstrap as ttk
 from test import *
-
-
-
 
 if __name__ == "__main__":
     window = ttk.Window(themename= 'journal')

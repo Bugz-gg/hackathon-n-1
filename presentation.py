@@ -30,7 +30,7 @@ if __name__ == "__main__":
     presentation_button = ttk.Button(
         buttons_frame, text="Presentation", command= dic["open_presentation"], state= 'disabled')
     presentation_button.pack(side='left', pady=30)
-    buttons_frame.pack(side=TOP)
+    buttons_frame.pack(side="top")
 
     #label
 
