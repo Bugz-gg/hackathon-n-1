@@ -2,42 +2,42 @@ from tkinter import *
 import ttkbootstrap as ttk
 
 class MainPage:
-    def __init__(self, master):
+    def __init__(self, master, title):
         self.master = master
-        self.create_widgets()
+        self.create_widgets(title)
 
-    def create_widgets(self):
+    def create_widgets(self, title):
         #Personnaliser la fenêtre
-        self.master.title('Main page')
+        self.master.title(title)
         self.master.minsize(720,480)
-        self.master.config(background='#41B77F')
+        #self.master.config(background='#41B77F')
 
         #Définition des fonctions qui amènent aux différentes pages
         def open_discussion():
-            self.master.destroy()  # Fermer la fenêtre principale
+            self.master.destroy() # Fermer la fenêtre principale
 
-            new_window = Tk()
+            new_window = ttk.Window(themename='darkly')
             Page(new_window, "Discussion")
             new_window.mainloop()
 
         def open_stats():
-            self.master.destroy()  # Fermer la fenêtre principale
+            self.master.destroy() # Fermer la fenêtre principale
 
-            new_window = Tk()
+            new_window = ttk.Window(themename='darkly')
             Page(new_window, "Stats")
             new_window.mainloop()
 
         def open_settings():
-            self.master.destroy()  # Fermer la fenêtre principale
+            self.master.destroy() # Fermer la fenêtre principale
 
-            new_window = Tk()
+            new_window = ttk.Window(themename='darkly')
             Page(new_window, "Settings")
             new_window.mainloop()
 
         def open_presentation():
-            self.master.destroy()  # Fermer la fenêtre principale
+            self.master.destroy() # Fermer la fenêtre principale
 
-            new_window = Tk()
+            new_window = ttk.Window(themename='darkly')
             Page(new_window, "Presentation")
             new_window.mainloop()
 
@@ -54,17 +54,17 @@ class MainPage:
         label_subtitle.pack(side=TOP, pady=25)
 
         #Ajout des boutons amenant aux différentes pages
-        discussion_button=Button(frame, text="Discussion", font=("Helvetica", 25), bg='#41B77F', fg='black', command=open_discussion)
-        discussion_button.pack()
+        discussion_button=ttk.Button(frame, text="Discussion", command=open_discussion)
+        discussion_button.pack(side=LEFT)
 
-        statistic_button=Button(frame, text="Stats", font=("Helvetica", 25), bg='#41B77F', fg='black', command=open_stats)
-        statistic_button.pack()
+        statistic_button=ttk.Button(frame, text="Stats", command=open_stats)
+        statistic_button.pack(side=LEFT)
 
-        settings_button=Button(frame, text="Settings", font=("Helvetica", 25), bg='#41B77F', fg='black', command=open_settings)
-        settings_button.pack()
+        settings_button=ttk.Button(frame, text="Settings", command=open_settings)
+        settings_button.pack(side=LEFT)
 
-        presentation_button=Button(frame, text="Presentation", font=("Helvetica", 25), bg='#41B77F', fg='black', command=open_presentation)
-        presentation_button.pack()
+        presentation_button=ttk.Button(frame, text="Presentation", command=open_presentation)
+        presentation_button.pack(side=LEFT)
 
 
 class Page:
@@ -73,15 +73,21 @@ class Page:
         self.create_widgets(title)
 
     def create_widgets(self, title):
+        """
+
+        :param title: The title of the widget.
+        :param content_func: A function that
+        :return:
+        """
         #Personnaliser la fenêtre
         self.master.title(title)
         self.master.minsize(720,480)
-        self.master.config(background='#41B77F')
+        #self.master.config(background='#41B77F')
 
         # ...
 
 
 #Création de la fenêtre d'accueil
-root = Tk()
-main_page = MainPage(root)
+root = ttk.Window(themename='darkly')
+main_page = MainPage(root, "Main page")
 root.mainloop()

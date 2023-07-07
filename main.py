@@ -1,76 +1,93 @@
 from tkinter import *
 import ttkbootstrap as ttk
 
+class MainPage:
+    def __init__(self, master, title):
+        self.master = master
+        self.create_widgets(title)
+
+    def create_widgets(self, title):
+        #Personnaliser la fenêtre
+        self.master.title(title)
+        self.master.minsize(720,480)
+        #self.master.config(background='#41B77F')
+
+        #Définition des fonctions qui amènent aux différentes pages
+        def open_discussion():
+            self.master.destroy() # Fermer la fenêtre principale
+
+            new_window = ttk.Window(themename='darkly')
+            Page(new_window, "Discussion")
+            new_window.mainloop()
+
+        def open_stats():
+            self.master.destroy() # Fermer la fenêtre principale
+
+            new_window = ttk.Window(themename='darkly')
+            Page(new_window, "Stats")
+            new_window.mainloop()
+
+        def open_settings():
+            self.master.destroy() # Fermer la fenêtre principale
+
+            new_window = ttk.Window(themename='darkly')
+            Page(new_window, "Settings")
+            new_window.mainloop()
+
+        def open_presentation():
+            self.master.destroy() # Fermer la fenêtre principale
+
+            new_window = ttk.Window(themename='darkly')
+            Page(new_window, "Presentation")
+            new_window.mainloop()
+
+        #Création du header, donc de la frame
+        frame=Frame(self.master, bg='#41B77F')
+        frame.pack(side=TOP)
+
+        #Ajout de texte (penser à mettre le même fond que la fenêtre pour ne pas voir le rectangle)
+        #Catégories Discussion, Statistiques, Réglages, Présentation
+        label_title = Label(frame, text="Template Header", font=("Helvetica", 40), bg='#41B77F', fg='black')
+        label_title.pack()
+
+        label_subtitle = Label(self.master, text="Template header to help the user figure out how the interface is looking", font=("Helvetica", 20), bg='#41B77F', fg='black')
+        label_subtitle.pack(side=TOP, pady=25)
+
+        #Ajout des boutons amenant aux différentes pages
+        discussion_button=ttk.Button(frame, text="Discussion", command=open_discussion)
+        discussion_button.pack(side=LEFT)
+
+        statistic_button=ttk.Button(frame, text="Stats", command=open_stats)
+        statistic_button.pack(side=LEFT)
+
+        settings_button=ttk.Button(frame, text="Settings", command=open_settings)
+        settings_button.pack(side=LEFT)
+
+        presentation_button=ttk.Button(frame, text="Presentation", command=open_presentation)
+        presentation_button.pack(side=LEFT)
+
+
+class Page:
+    def __init__(self, master, title):
+        self.master = master
+        self.create_widgets(title)
+
+    def create_widgets(self, title):
+        """
+
+        :param title: The title of the widget.
+        :param content_func: A function that
+        :return:
+        """
+        #Personnaliser la fenêtre
+        self.master.title(title)
+        self.master.minsize(720,480)
+        #self.master.config(background='#41B77F')
+
+        # ...
+
+
 #Création de la fenêtre d'accueil
-master = ttk.Window(themename= 'darkly')
-
-#Personnaliser la fenêtre
-master.title('Main page')
-master.attributes('-fullscreen', True)
-master.minsize(720,480)
-#master.iconbitmap("images/logo_icon.ico")
-
-#Définition des fonctions qui amènent aux différentes pages
-def open_discussion():
-    with open("discussion.py", "r") as file:
-        master.destroy()
-        code = file.read()
-        exec(code)
-
-def open_stats():
-    with open("stats.py", "r") as file:
-        master.destroy()
-        code = file.read()
-        exec(code)
-
-def open_settings():
-    with open("settings.py", "r") as file:
-        master.destroy()
-        code = file.read()
-        exec(code)
-
-def open_presentation():
-    with open("presentation.py", "r") as file:
-        master.destroy()
-        code = file.read()
-        exec(code)
-
-#Création des différentes frames
-buttons_frame=ttk.Frame(master)
-title_frame=ttk.Frame(master)
-exit_frame=ttk.Frame(master)
-
-#Ajout du titre
-label_title = ttk.Label(title_frame, text="Template Header", font="Helvetica 25")
-label_title.pack(pady=10)
-
-#Ajout des boutons amenant aux différentes pages
-discussion_button= ttk.Button(buttons_frame, text="Discussion", command=open_discussion)
-discussion_button.pack(side='left', pady=30)
-
-statistic_button=ttk.Button(buttons_frame, text="Stats", command=open_stats)
-statistic_button.pack(side='left', pady=30)
-
-settings_button=ttk.Button(buttons_frame, text="Settings", command=open_settings)
-settings_button.pack(side='left', pady=30)
-
-presentation_button=ttk.Button(buttons_frame, text="Presentation", command=open_presentation)
-presentation_button.pack(side='left', pady=30)
-
-#Ajout du bouton quitter
-exit_button=ttk.Button(buttons_frame, text="Exit", command=master.destroy)
-exit_button.pack(side=TOP, padx=100, pady=30)
-
-#Disposition des frames sur la page
-buttons_frame.pack(side=TOP)
-title_frame.pack(side=TOP)
-
-#Ajout du sous-titre
-label_subtitle = ttk.Label(master, text="Template header to help the user figure out how the interface is looking", font="Helvetica 12")
-label_subtitle.pack(side=TOP, pady=50)
-
-#Afficher la fenêtre
-master.mainloop()
-
-if __name__ == "__main__":
-    print("main")
+root = ttk.Window(themename='darkly')
+main_page = MainPage(root, "Main page")
+root.mainloop()
