@@ -1,6 +1,7 @@
 from tkinter import *
 import ttkbootstrap as ttk
 import sqlite3 as sql
+from datetime import *
 
 #Définition des variables utiles au chat avec le bot
 global text_sent_messages 
@@ -75,6 +76,7 @@ def discussion_content():
     def save_data():
         nonlocal output_string
         entry_value = entry_string.get()
+        timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         bdd = sql.connect('chat.bd')
         c = bdd.cursor()
         c.execute("SELECT MAX(id_message_conversation) FROM discussions")
@@ -83,8 +85,8 @@ def discussion_content():
             current_id = result[0] + 1
         else:
             current_id = 1
-        c.execute("INSERT INTO discussions(id_conversation, id_utilisateur, id_message_conversation, text_message) VALUES (?, ?, ?, ?)",
-                  (1, 1, current_id, entry_value))
+        c.execute("INSERT INTO discussions(id_conversation, id_utilisateur, id_message_conversation, text_message, timestamp_message) VALUES (?, ?, ?, ?, ?)",
+                  (1, 1, current_id, entry_value, timestamp))
         bdd.commit()
         bdd.close()
         output_string.set(entry_value)
@@ -123,11 +125,15 @@ def discussion_content():
 def display_sent_messages(text_widget):
     bdd = sql.connect('chat.bd')
     c = bdd.cursor()
-    c.execute("SELECT text_message FROM discussions WHERE id_utilisateur = 1")
+    c.execute("SELECT text_message, timestamp_message FROM discussions WHERE id_utilisateur = 1")
     messages = c.fetchall()
     text_widget.delete('1.0', END)
     for message in messages:
-        text_widget.insert(END, message[0] + "\n")
+        content = message[0]
+        timestamp = message[1]
+        formatted_timestamp = datetime.strptime(timestamp, '%Y-%m-%d %H:%M:%S').strftime('%m-%d %H:%M')
+        formatted_message = f"[{formatted_timestamp}] -- {content}"
+        text_widget.insert(END, formatted_message + "\n")
     bdd.close()
 
 #Fonction affichant les messages reçus (id_utilisateur du bot !=1)
@@ -175,8 +181,8 @@ displayed_page = Page(root, "Main page", main_content)
 def open_page(title):
     global displayed_page
     displayed_page.master.destroy() # Fermer la fenêtre principale
-    new_window = ttk.Window(themename='darkly')
-    displayed_page = Page(new_window, title, get_content[title])
+    displayed_page = Page(ttk.Window(themename='darkly'), title, get_content[title])
     displayed_page.master.mainloop()
 
 root.mainloop()
+
