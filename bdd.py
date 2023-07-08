@@ -7,12 +7,12 @@ bdd = sql.connect('chat.bd')
 c = bdd.cursor()
 
 #Création de la table (elle est maintenant déjà créée)
-# c.execute("""CREATE TABLE discussions(
-#           id_conversation int,
-#           id_utilisateur int,
-#           id_message_conversation int,
-#           text_message text
-#           )""")
+c.execute("""CREATE TABLE discussions(
+          id_conversation int,
+          id_utilisateur int,
+          id_message_conversation int,
+          text_message text
+          )""")
 
 #Instructions SQL pour insérer des données dans la BDD (j'ai inséré le premier message)
 # c.execute("INSERT INTO discussions VALUES (1,1,1, 'premier message')")

@@ -20,9 +20,6 @@ class Page:
         self.master.minsize(720,480)
         #self.master.config(background='#41B77F')
 
-        #Définition des fonctions qui amènent aux différentes pages
-
-
         #Création du header, donc de la frame
         button_frame=Frame(self.master)
         button_frame.pack(side=TOP, pady = 20)
@@ -115,8 +112,8 @@ def discussion_content():
     text_received_messages = Text(frame_received_messages, height=10, width=50)
     text_received_messages.pack()
 
-    display_sent_messages()
-    display_received_messages()
+    display_sent_messages(text_sent_messages)
+    display_received_messages(text_received_messages)
 
     output = Label(master=root.master, textvariable=output_string, bg='#41B77F', fg='black')
     output.pack()
