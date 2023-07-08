@@ -78,7 +78,6 @@ class Page:
 
     def create_widgets(self, title):
         """
-
         :param title: The title of the widget.
         :param content_func: A function that
         :return:
