@@ -1,5 +1,6 @@
 from tkinter import *
 import ttkbootstrap as ttk
+import sqlite3 as sql
 
 
 class Page:
@@ -66,17 +67,32 @@ def main_content():
     pass
 
 def discussion_content():
-    # Make a entry where the user can put words
-    new_lab = Label(root.master,  bg='#41B77F', fg='black')
-    
+    def save_data():
+        entry_value = entry_string.get()
+        bdd = sql.connect('chat.bd')
+        c = bdd.cursor()
+        c.execute("SELECT MAX(id_message_conversation) FROM discussions")
+        result = c.fetchone()
+        if result[0] is not None:
+            current_id = result[0] + 1
+        else:
+            current_id = 1
+        c.execute("INSERT INTO discussions(id_conversation, id_utilisateur, id_message_conversation, text_message) VALUES (?, ?, ?, ?)",
+                  (1, 1, current_id, entry_value))
+        bdd.commit()
+        bdd.close()
+        output_string.set(entry_value)
+
+    new_lab = Label(root.master, bg='#41B77F', fg='black')
+
     entry_string = StringVar()
-    entry = ttk.Entry(new_lab, textvariable= entry_string)
-    submit_button = ttk.Button(new_lab, text='submit', command= lambda :output_string.set(entry_string.get()))
+    entry = ttk.Entry(new_lab, textvariable=entry_string)
+    submit_button = ttk.Button(new_lab, text='submit', command=save_data)
     entry.pack(side='left')
     submit_button.pack(side='left', padx=10)
     new_lab.pack(side=TOP)
     output_string = StringVar()
-    output = Label(master= root.master, textvariable= output_string, bg='#41B77F', fg='black')
+    output = Label(master=root.master, textvariable=output_string, bg='#41B77F', fg='black')
     output.pack()
     pass
 
