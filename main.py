@@ -7,7 +7,7 @@ import sys
 
 #Définition des variables utiles au chat avec le bot afin d'éviter des erreurs
 global text_sent_messages 
-
+reconnect = True
 #Classe principale de la page
 class Page:
     def __init__(self, master, title, content):
@@ -56,8 +56,8 @@ def main_content():
 
 #Fonction qui gère la BDD de la page de discussion
 def discussion_content():
-
     def save_data():
+        global reconnect
         entry_value = entry_string.get()
 
         formatted_timestamp = datetime.strptime(datetime.now().strftime('%Y-%m-%d %H:%M:%S'), '%Y-%m-%d %H:%M:%S').strftime('%m-%d %H:%M')
@@ -67,7 +67,25 @@ def discussion_content():
         text_sent_messages.see(END)
         text_sent_messages.configure(state='disabled')
         text_sent_messages.update()
-        output_value = science_tutoring(chat_input= entry_value).text + "\n"
+        past = ""
+        if reconnect:
+            bdd = sql.connect('chat.bd')
+            c = bdd.cursor()
+            c.execute("SELECT text_message, id_utilisateur FROM discussions ORDER BY id_message_conversation ASC")
+            messages = c.fetchall()[-6:]  # Donne les 6 derniers messages au bot.
+            bdd.close()
+
+            if messages is not None:
+                past = "These are the last messages you've exchanged with the user in case the user asks. There may be more. "
+                for message in messages:
+                    if message[1] != "Bot":
+                        past += f"The user said : {message[0]}\n"
+                    else:
+                        past += f"You replied : {message[0]}\n"
+                past += "Now the user says :"
+            print(past)
+            reconnect = False
+        output_value = science_tutoring(chat_input= past+entry_value).text + "\n"
         timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         bdd = sql.connect('chat.bd')
         c = bdd.cursor()
