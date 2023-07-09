@@ -25,9 +25,10 @@ class Page:
         #Création du header, donc de la frame
         button_frame=Frame(self.master)
         button_frame.pack(side=TOP, pady = 20)
-        for button_title in ["Discussion", "Stats", "Settings", "Presentation"]:
+        if title=="Exit":
+            self.master.destroy()
+        for button_title in ["Discussion", "Stats", "Settings", "Presentation", "Exit"]:
             if button_title == title:
-                print("tamaga desu")
                 #Permet de désactiver le bouton de la page lorsque l'on est déjà dessus
                 button = ttk.Button(button_frame, text=button_title, command=lambda x=button_title:open_page(x), state="disabled")
             else:
@@ -42,16 +43,17 @@ class Page:
         # label_subtitle_initialized = False
 
         if not label_title_initialized:
-            label_title = Label(frame, text=self.title)
+            label_title = Label(frame, text=self.title, font=("Helvetica", 40))
             label_title.pack()
             label_title_initialized = True
         else:
             label_title.pack_forget()
         content()
+        
 
 #Ce qui s'affiche lorsqu'on lance l'application pour la première fois
 def main_content():
-    label_subtitle = Label(root.master, text="Appuyez sur une touche. (Ça ne fait rien et c'est normal.)")
+    label_subtitle = Label(root.master, text="Appuyez sur une touche. (Ça ne fait rien et c'est normal.)", font=("Helvetica", 20))
     label_subtitle.pack(side=TOP, pady=25)
     pass
 
@@ -117,13 +119,13 @@ def display_messages(text_widget):
 
 #Fonction définissant le contenu de la page stats
 def stats_content():
-    label_subtitle = Label(root.master, text="Check your stats.")
+    label_subtitle = Label(root.master, text="Check your stats.", font=("Helvetica", 20))
     label_subtitle.pack(side=TOP, pady=25)
     pass
 
 #Fonction définissant le contenu de la page de réglages
 def settings_content():
-    label_subtitle = Label(root.master, text="Settings are here.")
+    label_subtitle = Label(root.master, text="Settings are here.", font=("Helvetica", 20))
     label_subtitle.pack(side=TOP, pady=25)
     pass
 def presentation_content():
@@ -151,7 +153,7 @@ In conclusion, our AI-powered English conversation learning program revolutioniz
 Thank you for your attention!
 """
 
-    label_subtitle = Label(root.master, text="Presentation time.")
+    label_subtitle = Label(root.master, text="Presentation time.", font=("Helvetica", 12))
     label_subtitle.pack(side=TOP, pady=25)
     label_subsubtitle = Text(root.master,  wrap=WORD)
     label_subsubtitle.insert(END, txt())
