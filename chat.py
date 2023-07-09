@@ -46,7 +46,7 @@ aiplatform.init(
     experiment_description='my experiment decsription'
 )
 
-def science_tutoring(temperature : float = 0.5, chat_input : str = "I had breakfast on the moon with my pet dinosaur while wearing a spacesuit made of cheese.") -> None:
+def science_tutoring(temperature : float = 0.5, chat_input : str = "I had breakfast on the moon with my pet dinosaur while wearing a spacesuit made of cheese."):
     chat_model = ChatModel.from_pretrained("chat-bison@001")
 
     

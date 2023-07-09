@@ -4,9 +4,10 @@ import sqlite3 as sql
 from datetime import *
 from chat import *
 
+import time
+
 #Définition des variables utiles au chat avec le bot afin d'éviter des erreurs
 global text_sent_messages 
-text_sent_messages = None
 
 #Classe principale de la page
 class Page:
@@ -43,9 +44,7 @@ class Page:
         if not label_title_initialized:
             label_title = Label(frame, text=self.title, font=("Helvetica", 40))
             label_title.pack()
-            label_title_initialized = True
-        else:
-            label_title.pack_forget()
+
         content()
         
 
@@ -62,8 +61,14 @@ def discussion_content():
     def save_data():
         nonlocal output_string
         entry_value = entry_string.get()
+        formatted_timestamp = datetime.strptime(datetime.now().strftime('%Y-%m-%d %H:%M:%S'), '%Y-%m-%d %H:%M:%S').strftime('%m-%d %H:%M')
+        formatted_message = f"[{formatted_timestamp}] You -- {entry_value}"
+        text_sent_messages.configure(state='normal')
+        text_sent_messages.insert(END, formatted_message + "\n")
+        text_sent_messages.see(END)
+        text_sent_messages.configure(state='disabled')
+        text_sent_messages.update()
         output_value = science_tutoring(chat_input= entry_value).text + "\n"
-        timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         bdd = sql.connect('chat.bd')
         c = bdd.cursor()
         c.execute("SELECT MAX(id_message_conversation) FROM discussions")
@@ -73,9 +78,9 @@ def discussion_content():
         else:
             current_id = 1
         c.execute("INSERT INTO discussions(id_conversation, id_utilisateur, id_message_conversation, text_message, timestamp_message) VALUES (?, ?, ?, ?, ?)",
-                  (1, "You", current_id, entry_value, timestamp))
+                  (1, "You", current_id, entry_value, datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
         c.execute("INSERT INTO discussions(id_conversation, id_utilisateur, id_message_conversation, text_message, timestamp_message) VALUES (?, ?, ?, ?, ?)",
-                  (1, "Bot", current_id + 1, output_value, timestamp))
+                  (1, "Bot", current_id + 1, output_value, datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
         bdd.commit()
         bdd.close()
         display_messages(text_sent_messages)
@@ -116,20 +121,18 @@ def display_messages(text_widget):
         formatted_timestamp = datetime.strptime(timestamp, '%Y-%m-%d %H:%M:%S').strftime('%m-%d %H:%M')
         formatted_message = f"[{formatted_timestamp}] {nom_utilisateur} -- {content}"
         text_widget.insert(END, formatted_message + "\n")
-        text_widget.see(END)
+    text_widget.see(END)
     text_widget.configure(state='disabled')
 
 #Fonction définissant le contenu de la page stats
 def stats_content():
     label_subtitle = Label(root.master, text="Check your stats.", font=("Helvetica", 20))
     label_subtitle.pack(side=TOP, pady=25)
-    pass
 
 #Fonction définissant le contenu de la page de réglages
 def settings_content():
     label_subtitle = Label(root.master, text="Settings are here.", font=("Helvetica", 20))
     label_subtitle.pack(side=TOP, pady=25)
-    pass
 def presentation_content():
     def txt():
         return """
