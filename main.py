@@ -18,8 +18,13 @@ class Page:
     def create_widgets(self, title, content):
         #Personnaliser la fenêtre
         self.master.title(title)
+<<<<<<< HEAD
         self.master.attributes("-fullscreen", True)
         #self.master.minsize(720,480)
+=======
+        #self.master.attributes("-fullscreen", True)
+        self.master.minsize(720,480)
+>>>>>>> 97a330a918ff7bf7fda4de3e9541e3dfff059f46
 
         #Création du header, donc de la frame
         button_frame=Frame(self.master)
@@ -146,12 +151,12 @@ def display_messages(text_widget):
 
 #Fonction définissant le contenu de la page stats
 def stats_content():
-    label_subtitle = Label(root.master, text="Check your stats.", font=("Helvetica", 20))
+    label_subtitle = Label(root.master, text="Coming soon.", font=("Helvetica", 20))
     label_subtitle.pack(side=TOP, pady=25)
 
 #Fonction définissant le contenu de la page de réglages
 def settings_content():
-    label_subtitle = Label(root.master, text="Settings are here.", font=("Helvetica", 20))
+    label_subtitle = Label(root.master, text="Coming soon.", font=("Helvetica", 20))
     label_subtitle.pack(side=TOP, pady=25)
 def presentation_content():
     def txt():
