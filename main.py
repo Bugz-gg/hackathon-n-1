@@ -7,7 +7,6 @@ import sys
 
 #Définition des variables utiles au chat avec le bot afin d'éviter des erreurs
 global text_sent_messages 
-text_sent_messages = None
 
 #Classe principale de la page
 class Page:
@@ -57,11 +56,10 @@ def main_content():
 
 #Fonction qui gère la BDD de la page de discussion
 def discussion_content():
-    output_string = StringVar()
 
     def save_data():
-        nonlocal output_string
         entry_value = entry_string.get()
+
         formatted_timestamp = datetime.strptime(datetime.now().strftime('%Y-%m-%d %H:%M:%S'), '%Y-%m-%d %H:%M:%S').strftime('%m-%d %H:%M')
         formatted_message = f"[{formatted_timestamp}] You -- {entry_value}"
         text_sent_messages.configure(state='normal')
@@ -86,7 +84,8 @@ def discussion_content():
         bdd.commit()
         bdd.close()
         display_messages(text_sent_messages)
-        entry.config(textvariable=StringVar())
+        entry_string.set("")
+        entry.config(textvariable=entry_string)
 
     new_lab = Label(root.master)
 
