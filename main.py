@@ -116,6 +116,7 @@ def display_messages(text_widget):
         formatted_timestamp = datetime.strptime(timestamp, '%Y-%m-%d %H:%M:%S').strftime('%m-%d %H:%M')
         formatted_message = f"[{formatted_timestamp}] {nom_utilisateur} -- {content}"
         text_widget.insert(END, formatted_message + "\n")
+        text_widget.see(END)
     text_widget.configure(state='disabled')
 
 #Fonction définissant le contenu de la page stats
