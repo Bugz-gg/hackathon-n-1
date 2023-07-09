@@ -159,6 +159,7 @@ Thank you for your attention!
     label_subsubtitle = Text(root.master,  wrap=WORD)
     label_subsubtitle.insert(END, txt())
     label_subsubtitle.pack( fill=Y)
+    label_subsubtitle.configure(state='disabled')
     pass
 
 
