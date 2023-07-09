@@ -21,7 +21,6 @@ class Page:
         #Personnaliser la fenêtre
         self.master.title(title)
         self.master.minsize(720,480)
-        #self.master.config(background='#41B77F')
 
         #Création du header, donc de la frame
         button_frame=Frame(self.master)
@@ -38,37 +37,21 @@ class Page:
         frame=Frame(self.master)
         frame.pack(side=TOP, pady= 20)
 
-
-        #Ajout de texte (penser à mettre le même fond que la fenêtre pour ne pas voir le rectangle)
-        #Catégories Discussion, Statistiques, Réglages, Présentation
-        
         # Set the flag variables to track initialization
         label_title_initialized = False
         # label_subtitle_initialized = False
 
         if not label_title_initialized:
-            label_title = Label(frame, text=self.title , font=("Helvetica", 40), bg='#41B77F', fg='black')
+            label_title = Label(frame, text=self.title)
             label_title.pack()
             label_title_initialized = True
         else:
             label_title.pack_forget()
-
-        # if not label_subtitle_initialized:
-        #     label_subtitle = Label(frame, text="Template header to help the user figure out how the interface is looking", font=("Helvetica", 20), bg='#41B77F', fg='black')
-        #     label_subtitle.pack(side=TOP, pady=25)
-        #     label_subtitle_initialized = True
-        # else:
-        #     label_subtitle.pack_forget()
-
-
-        #Ajout des boutons amenant aux différentes pages
-
         content()
 
 #Ce qui s'affiche lorsqu'on lance l'application pour la première fois
 def main_content():
-    label_subtitle = Label(root.master, text="Appuyez sur une touche. (Ça ne fait rien et c'est normal.)",
-                           font=("Helvetica", 20), bg='#41B77F', fg='black')
+    label_subtitle = Label(root.master, text="Appuyez sur une touche. (Ça ne fait rien et c'est normal.)")
     label_subtitle.pack(side=TOP, pady=25)
     pass
 
@@ -96,6 +79,7 @@ def discussion_content():
         bdd.commit()
         bdd.close()
         display_messages(text_sent_messages)
+        entry.config(textvariable=StringVar())
 
     new_lab = Label(root.master)
 
@@ -111,13 +95,6 @@ def discussion_content():
     frame_sent_messages.pack(side=TOP, pady=20)
     text_sent_messages = Text(frame_sent_messages, height=10, width=50)
     text_sent_messages.pack()
-
-    global text_received_messages
-    frame_received_messages = Frame(root.master)
-    frame_received_messages.pack(side=TOP, pady=20)
-    text_received_messages = Text(frame_received_messages, height=10, width=50)
-    text_received_messages.pack()
-
 
     display_messages(text_sent_messages)
     pass
@@ -140,22 +117,45 @@ def display_messages(text_widget):
 
 #Fonction définissant le contenu de la page stats
 def stats_content():
-    label_subtitle = Label(root.master, text="Check your stats.",
-                           font=("Helvetica", 20), bg='#41B77F', fg='black')
+    label_subtitle = Label(root.master, text="Check your stats.")
     label_subtitle.pack(side=TOP, pady=25)
     pass
 
 #Fonction définissant le contenu de la page de réglages
 def settings_content():
-    label_subtitle = Label(root.master, text="Settings are here.",
-                           font=("Helvetica", 20), bg='#41B77F', fg='black')
+    label_subtitle = Label(root.master, text="Settings are here.")
     label_subtitle.pack(side=TOP, pady=25)
     pass
 def presentation_content():
-    #label_subtitle.pack_forget()
-    label_subtitle = Label(root.master, text="Presentation time.",
-                           font=("Helvetica", 20), bg='#41B77F', fg='black')
+    def txt():
+        return """
+AI-Powered English Conversation Learning Program
+
+Hello everyone! Today, we are excited to present our AI-powered English conversation learning program. With this innovative application, we aim to provide an immersive and interactive way for users to improve their English language skills.
+
+Learning a new language, particularly English, can be a challenging task. Traditional methods often lack real-world context and fail to engage learners effectively. As a result, many individuals struggle to develop their conversational skills and build confidence in using English in practical situations.
+
+Our AI-based program tackles this problem by offering a conversation-based approach to language learning. The program simulates real-life dialogues and engages users in interactive conversations.
+
+Key Features:
+1. Personalized Conversations: The program adapts to each user's proficiency level and provides tailored conversations that match their learning needs. Whether you're a beginner or an advanced learner, the program offers suitable challenges to enhance your skills.
+
+2. (Futur feature) Speech Recognition: Our application utilizes advanced speech recognition technology to accurately analyze and evaluate users' spoken responses. This feature provides instant feedback, enabling learners to improve their pronunciation and fluency.
+
+3. Grammar and Syntax Assistance: Our AI assistant helps users improve their grammar and sentence structure by providing suggestions and corrections during conversations. This feature ensures that learners develop accurate and grammatically correct English communication skills.
+
+4. (Working on it) Progress Tracking: The program keeps track of users' progress, recording their performance in different conversation scenarios. Users can monitor their improvement over time, motivating them to continue practicing and achieving their language learning goals.
+
+In conclusion, our AI-powered English conversation learning program revolutionizes the way individuals learn English. By offering an immersive and interactive experience, we aim to make language learning enjoyable, engaging, and effective. We believe that our application will empower users to gain confidence in their English speaking abilities and unlock new opportunities in their personal and professional lives.
+
+Thank you for your attention!
+"""
+
+    label_subtitle = Label(root.master, text="Presentation time.")
     label_subtitle.pack(side=TOP, pady=25)
+    label_subsubtitle = Text(root.master,  wrap=WORD)
+    label_subsubtitle.insert(END, txt())
+    label_subsubtitle.pack( fill=Y)
     pass
 
 
