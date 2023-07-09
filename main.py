@@ -18,6 +18,7 @@ class Page:
     def create_widgets(self, title, content):
         #Personnaliser la fenêtre
         self.master.title(title)
+        self.master.attributes("-fullscreen", True)
         self.master.minsize(720,480)
 
         #Création du header, donc de la frame
