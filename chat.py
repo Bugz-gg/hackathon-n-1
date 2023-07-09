@@ -46,7 +46,7 @@ aiplatform.init(
     experiment_description='my experiment decsription'
 )
 
-def science_tutoring(temperature : float = 0.5) -> None:
+def science_tutoring(temperature : float = 0.5, chat_input : str = "I had breakfast on the moon with my pet dinosaur while wearing a spacesuit made of cheese.") -> None:
     chat_model = ChatModel.from_pretrained("chat-bison@001")
 
     
@@ -131,13 +131,14 @@ def science_tutoring(temperature : float = 0.5) -> None:
     )
 
     response = chat.send_message(
-        "I had breakfast on the moon with my pet dinosaur while wearing a spacesuit made of cheese.", **parameters
+        chat_input, **parameters
     )
-    print(f"Response from Model: {response.text}\n")
-    # [END aiplatform_sdk_chat]
-    print(chat.send_message(
-        "I goed to the supermarkit yesturday and buyed lotz of potatos. Then, me and my freind eated lunch at the park and we was have fun.", **parameters
-    ).text)
+    #print(f"Response from Model: {response.text}\n")
+    # # [END aiplatform_sdk_chat]
+    # print(chat.send_message(
+    #     "I goed to the supermarkit yesturday and buyed lotz of potatos. Then, me and my freind eated lunch at the park and we was have fun.", **parameters
+    # ).text)
+
     return response
 
 

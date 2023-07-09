@@ -2,6 +2,7 @@ from tkinter import *
 import ttkbootstrap as ttk
 import sqlite3 as sql
 from datetime import *
+from chat import *
 
 #Définition des variables utiles au chat avec le bot
 global text_sent_messages 
@@ -71,11 +72,10 @@ def main_content():
 
 #Fonction qui gère la BDD de la page de discussion
 def discussion_content():
-    output_string = StringVar()
 
     def save_data():
-        nonlocal output_string
         entry_value = entry_string.get()
+        output_value = science_tutoring(chat_input= entry_value).text
         timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         bdd = sql.connect('chat.bd')
         c = bdd.cursor()
@@ -87,9 +87,10 @@ def discussion_content():
             current_id = 1
         c.execute("INSERT INTO discussions(id_conversation, id_utilisateur, id_message_conversation, text_message, timestamp_message) VALUES (?, ?, ?, ?, ?)",
                   (1, 1, current_id, entry_value, timestamp))
+        c.execute("INSERT INTO discussions(id_conversation, id_utilisateur, id_message_conversation, text_message, timestamp_message) VALUES (?, ?, ?, ?, ?)",
+                  (1, 2, current_id + 1, output_value, timestamp))
         bdd.commit()
         bdd.close()
-        output_string.set(entry_value)
         display_sent_messages(text_sent_messages)
         display_received_messages(text_received_messages)
 
@@ -117,8 +118,6 @@ def discussion_content():
     display_sent_messages(text_sent_messages)
     display_received_messages(text_received_messages)
 
-    output = Label(master=root.master, textvariable=output_string, bg='#41B77F', fg='black')
-    output.pack()
     pass
 
 #Fonction affichant les messages envoyés (id_utilisateur de l'usager =1)
