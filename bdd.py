@@ -10,7 +10,7 @@ c = bdd.cursor()
 #Création de la table (elle est maintenant déjà créée)
 # c.execute("""CREATE TABLE discussions(
 #           id_conversation INTEGER,
-#           id_utilisateur INTEGER,
+#           id_utilisateur TEXT,
 #           id_message_conversation INTEGER,
 #           text_message TEXT,
 #           timestamp_message TEXT
