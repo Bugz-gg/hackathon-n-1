@@ -14,7 +14,6 @@
 
 # [START aiplatform_sdk_chat]
 from vertexai.preview.language_models import ChatModel, InputOutputTextPair
-
 from google.cloud import aiplatform
 
 aiplatform.init(
