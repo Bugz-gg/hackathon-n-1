@@ -7,8 +7,6 @@ from chat import *
 #Définition des variables utiles au chat avec le bot afin d'éviter des erreurs
 global text_sent_messages 
 text_sent_messages = None
-global text_received_messages
-text_received_messages = None
 
 #Classe principale de la page
 class Page:
@@ -106,7 +104,10 @@ def display_messages(text_widget):
     bdd = sql.connect('chat.bd')
     c = bdd.cursor()
     c.execute("SELECT text_message, timestamp_message, id_utilisateur FROM discussions")
+
     messages = c.fetchall()
+    bdd.close()
+    text_widget.configure(state='normal')
     text_widget.delete('1.0', END)
     for message in messages:
         content = message[0]
@@ -115,7 +116,7 @@ def display_messages(text_widget):
         formatted_timestamp = datetime.strptime(timestamp, '%Y-%m-%d %H:%M:%S').strftime('%m-%d %H:%M')
         formatted_message = f"[{formatted_timestamp}] {nom_utilisateur} -- {content}"
         text_widget.insert(END, formatted_message + "\n")
-    bdd.close()
+    text_widget.configure(state='disabled')
 
 #Fonction définissant le contenu de la page stats
 def stats_content():
