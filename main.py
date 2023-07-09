@@ -1,7 +1,13 @@
 from tkinter import *
 import ttkbootstrap as ttk
 import sqlite3 as sql
+from datetime import *
 
+#Définition des variables utiles au chat avec le bot
+global text_sent_messages 
+text_sent_messages = None
+global text_received_messages
+text_received_messages = None
 
 class Page:
     def __init__(self, master, title, content):
@@ -14,9 +20,6 @@ class Page:
         self.master.title(title)
         self.master.minsize(720,480)
         #self.master.config(background='#41B77F')
-
-        #Définition des fonctions qui amènent aux différentes pages
-
 
         #Création du header, donc de la frame
         button_frame=Frame(self.master)
@@ -66,9 +69,14 @@ def main_content():
     label_subtitle.pack(side=TOP, pady=25)
     pass
 
+#Fonction qui gère la BDD de la page de discussion
 def discussion_content():
+    output_string = StringVar()
+
     def save_data():
+        nonlocal output_string
         entry_value = entry_string.get()
+        timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         bdd = sql.connect('chat.bd')
         c = bdd.cursor()
         c.execute("SELECT MAX(id_message_conversation) FROM discussions")
@@ -77,13 +85,15 @@ def discussion_content():
             current_id = result[0] + 1
         else:
             current_id = 1
-        c.execute("INSERT INTO discussions(id_conversation, id_utilisateur, id_message_conversation, text_message) VALUES (?, ?, ?, ?)",
-                  (1, 1, current_id, entry_value))
+        c.execute("INSERT INTO discussions(id_conversation, id_utilisateur, id_message_conversation, text_message, timestamp_message) VALUES (?, ?, ?, ?, ?)",
+                  (1, 1, current_id, entry_value, timestamp))
         bdd.commit()
         bdd.close()
         output_string.set(entry_value)
+        display_sent_messages(text_sent_messages)
+        display_received_messages(text_received_messages)
 
-    new_lab = Label(root.master, bg='#41B77F', fg='black')
+    new_lab = Label(root.master)
 
     entry_string = StringVar()
     entry = ttk.Entry(new_lab, textvariable=entry_string)
@@ -91,16 +101,62 @@ def discussion_content():
     entry.pack(side='left')
     submit_button.pack(side='left', padx=10)
     new_lab.pack(side=TOP)
-    output_string = StringVar()
+
+    frame_sent_messages = Frame(root.master)
+    frame_sent_messages.pack(side=TOP, pady=20)
+
+    frame_received_messages = Frame(root.master)
+    frame_received_messages.pack(side=TOP, pady=20)
+
+    text_sent_messages = Text(frame_sent_messages, height=10, width=50)
+    text_sent_messages.pack()
+
+    text_received_messages = Text(frame_received_messages, height=10, width=50)
+    text_received_messages.pack()
+
+    display_sent_messages(text_sent_messages)
+    display_received_messages(text_received_messages)
+
     output = Label(master=root.master, textvariable=output_string, bg='#41B77F', fg='black')
     output.pack()
     pass
 
+#Fonction affichant les messages envoyés (id_utilisateur de l'usager =1)
+def display_sent_messages(text_widget):
+    bdd = sql.connect('chat.bd')
+    c = bdd.cursor()
+    c.execute("SELECT text_message, timestamp_message FROM discussions WHERE id_utilisateur = 1")
+    messages = c.fetchall()
+    text_widget.delete('1.0', END)
+    for message in messages:
+        content = message[0]
+        timestamp = message[1]
+        formatted_timestamp = datetime.strptime(timestamp, '%Y-%m-%d %H:%M:%S').strftime('%m-%d %H:%M')
+        formatted_message = f"[{formatted_timestamp}] -- {content}"
+        text_widget.insert(END, formatted_message + "\n")
+    bdd.close()
+
+#Fonction affichant les messages reçus (id_utilisateur du bot !=1)
+def display_received_messages(text_widget):
+    bdd = sql.connect('chat.bd')
+    c = bdd.cursor()
+    c.execute("SELECT text_message FROM discussions WHERE id_utilisateur != 1")
+    messages = c.fetchall()
+    text_widget.delete('1.0', END)
+    for message in messages:
+        text_widget.insert(END, message[0] + "\n")
+    bdd.close()
+
+
+
+#Fonction définissant le contenu de la page stats
 def stats_content():
     label_subtitle = Label(root.master, text="Check your stats.",
                            font=("Helvetica", 20), bg='#41B77F', fg='black')
     label_subtitle.pack(side=TOP, pady=25)
     pass
+
+#Fonction définissant le contenu de la page de réglages
 def settings_content():
     label_subtitle = Label(root.master, text="Settings are here.",
                            font=("Helvetica", 20), bg='#41B77F', fg='black')
@@ -125,9 +181,7 @@ displayed_page = Page(root, "Main page", main_content)
 def open_page(title):
     global displayed_page
     displayed_page.master.destroy() # Fermer la fenêtre principale
-    new_window = ttk.Window(themename='darkly')
-    displayed_page = Page(new_window, title, get_content[title])
+    displayed_page = Page(ttk.Window(themename='darkly'), title, get_content[title])
     displayed_page.master.mainloop()
-
 
 root.mainloop()
