@@ -127,6 +127,50 @@ def science_tutoring(temperature : float = 0.5, chat_input : str = "I had breakf
                 input_text = "I had an great day today!",
                 output_text = "That's great to hear! I'm glad you had a good day. Just a small correction: instead of saying 'I had an great day today,' it should be 'I had a great day today.' Keep up the good work!",
             ),
+            InputOutputTextPair(
+                input_text="I often goes to the library to read books and improve my English.",
+                output_text="That's a great habit! Just a small correction: instead of saying 'I often goes,' it should be 'I often go.' Going to the library and reading books is an excellent way to enhance your English skills. What kind of books do you enjoy reading?",
+                ),
+            InputOutputTextPair(
+                input_text="I'm struggling with understanding English idioms. Can you help me with that?",
+                output_text="Of course! English idioms can be challenging, but with practice, you can become familiar with them. Is there a specific idiom you'd like to learn about, or do you need general guidance on how to understand and use idioms in conversations?",
+                ),
+            InputOutputTextPair(
+                input_text="I want to expand my vocabulary. How can I learn new words effectively?",
+                output_text="That's a great goal! There are several ways to expand your vocabulary. One effective method is to read extensively in English. Are there any specific topics or genres you're interested in? Additionally, using vocabulary-building apps or flashcards can also be helpful. Have you tried any of these methods before?",
+                ),
+            InputOutputTextPair(
+                input_text="I find it difficult to pronounce certain English sounds. Any tips to improve my pronunciation?",
+                output_text="Pronunciation can be challenging, but with practice, you can improve. One tip is to listen to native English speakers and mimic their pronunciation. Another helpful approach is to focus on individual sounds and practice them using tongue twisters. Is there any specific sound or phoneme that you find particularly challenging?",
+                ),
+            InputOutputTextPair(
+                input_text="I struggle with understanding spoken English. How can I improve my listening skills?",
+                output_text="Improving listening skills is essential for understanding spoken English. One effective method is to listen to English podcasts, watch movies or TV shows in English, and engage in conversations with native English speakers. Additionally, practicing active listening techniques, such as summarizing what you've heard, can also be beneficial. Have you tried any of these strategies?",
+                ),
+            InputOutputTextPair(
+                input_text="I'm interested in improving my English writing skills. Do you have any tips or resources?",
+                output_text="Certainly! Improving writing skills takes practice. One tip is to start by writing regularly, even if it's just a journal entry or short paragraph. You can also seek feedback from native English speakers or consider taking writing courses online. Are there any specific writing areas or genres you'd like to focus on?",
+                ),
+            InputOutputTextPair(
+                input_text="English grammar rules confuse me. How can I better understand and apply them?",
+                output_text="Grammar can be complex, but with patience and practice, you can improve your understanding. One approach is to study grammar rules systematically and then practice applying them through exercises or writing activities. Are there any specific grammar topics or rules you find particularly challenging?",
+                ),
+            InputOutputTextPair(
+                input_text="I want to build more confidence in speaking English. How can I overcome my shyness?",
+                output_text="Building confidence in speaking English is a gradual process. One helpful strategy is to practice speaking with friends or language exchange partners who are also learning English. Another approach is to join conversation clubs or participate in language immersion programs. Have you tried any of these methods before?",
+                ),
+            InputOutputTextPair(
+                input_text="I feel overwhelmed by the amount of English vocabulary. How can I remember words more effectively?",
+                output_text="Vocabulary retention can be challenging, but there are techniques that can help. One method is to create flashcards with new words and review them regularly. Another approach is to use vocabulary in context by incorporating new words into sentences or conversations. Are there any specific vocabulary topics or areas you'd like to focus on?",
+                ),
+            InputOutputTextPair(
+                input_text="I'm preparing for an English exam. Do you have any study tips?",
+                output_text="Absolutely! When preparing for an English exam, it's important to practice all language skills: reading, writing, listening, and speaking. Make sure to review exam format and requirements, and dedicate time for focused practice in each area. Additionally, taking practice tests and seeking feedback can help you identify areas that need improvement. Which specific exam are you preparing for?",
+                ),
+            InputOutputTextPair(
+                input_text="I want to sound more natural in English. How can I improve my fluency?",
+                output_text="Improving fluency requires consistent practice. One approach is to engage in conversations with native English speakers or participate in language exchange programs. Additionally, listening to English audio materials and mimicking natural speech patterns can help you develop a more natural flow. Have you tried practicing with native speakers before?",
+                ),
         ],
     )
 

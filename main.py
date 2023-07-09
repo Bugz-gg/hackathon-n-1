@@ -19,7 +19,7 @@ class Page:
         #Personnaliser la fenêtre
         self.master.title(title)
         self.master.attributes("-fullscreen", True)
-        self.master.minsize(720,480)
+        #self.master.minsize(720,480)
 
         #Création du header, donc de la frame
         button_frame=Frame(self.master)
