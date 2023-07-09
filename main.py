@@ -84,7 +84,7 @@ def discussion_content():
                     else:
                         past += f"You replied : {message[0]}\n"
                 past += "Now the user says :"
-            print(past)
+            #print(past)
             reconnect = False
         output_value = science_tutoring(chat_input= past+entry_value).text + "\n"
         timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
