@@ -3,11 +3,11 @@ import ttkbootstrap as ttk
 import sqlite3 as sql
 from datetime import *
 from chat import *
-
-import time
+import sys
 
 #Définition des variables utiles au chat avec le bot afin d'éviter des erreurs
 global text_sent_messages 
+text_sent_messages = None
 
 #Classe principale de la page
 class Page:
@@ -24,15 +24,16 @@ class Page:
         #Création du header, donc de la frame
         button_frame=Frame(self.master)
         button_frame.pack(side=TOP, pady = 20)
-        if title=="Exit":
-            self.master.destroy()
-        for button_title in ["Discussion", "Stats", "Settings", "Presentation", "Exit"]:
+
+        for button_title in ["Discussion", "Stats", "Settings", "Presentation"]:
             if button_title == title:
                 #Permet de désactiver le bouton de la page lorsque l'on est déjà dessus
                 button = ttk.Button(button_frame, text=button_title, command=lambda x=button_title:open_page(x), state="disabled")
             else:
                 button = ttk.Button(button_frame, text=button_title, command=lambda x=button_title:open_page(x), state="enabled")
             button.pack(side=LEFT)
+        button = ttk.Button(button_frame, text="Exit", command=lambda :self.master.destroy(), state="enable")
+        button.pack(side=LEFT)
 
         frame=Frame(self.master)
         frame.pack(side=TOP, pady= 20)
@@ -69,6 +70,7 @@ def discussion_content():
         text_sent_messages.configure(state='disabled')
         text_sent_messages.update()
         output_value = science_tutoring(chat_input= entry_value).text + "\n"
+        timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         bdd = sql.connect('chat.bd')
         c = bdd.cursor()
         c.execute("SELECT MAX(id_message_conversation) FROM discussions")
@@ -78,9 +80,9 @@ def discussion_content():
         else:
             current_id = 1
         c.execute("INSERT INTO discussions(id_conversation, id_utilisateur, id_message_conversation, text_message, timestamp_message) VALUES (?, ?, ?, ?, ?)",
-                  (1, "You", current_id, entry_value, datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
+                  (1, "You", current_id, entry_value, timestamp))
         c.execute("INSERT INTO discussions(id_conversation, id_utilisateur, id_message_conversation, text_message, timestamp_message) VALUES (?, ?, ?, ?, ?)",
-                  (1, "Bot", current_id + 1, output_value, datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
+                  (1, "Bot", current_id + 1, output_value, timestamp))
         bdd.commit()
         bdd.close()
         display_messages(text_sent_messages)
@@ -122,7 +124,7 @@ def display_messages(text_widget):
         formatted_message = f"[{formatted_timestamp}] {nom_utilisateur} -- {content}"
         text_widget.insert(END, formatted_message + "\n")
     text_widget.see(END)
-    text_widget.configure(state='disabled')
+    text_widget.configure(state='disabled', wrap=WORD)
 
 #Fonction définissant le contenu de la page stats
 def stats_content():
