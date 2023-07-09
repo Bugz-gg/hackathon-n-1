@@ -127,6 +127,8 @@ def display_sent_messages(text_widget):
     c = bdd.cursor()
     c.execute("SELECT text_message, timestamp_message FROM discussions WHERE id_utilisateur = 1")
     messages = c.fetchall()
+    bdd.close()
+    text_widget.configure(state='normal')
     text_widget.delete('1.0', END)
     for message in messages:
         content = message[0]
@@ -134,7 +136,7 @@ def display_sent_messages(text_widget):
         formatted_timestamp = datetime.strptime(timestamp, '%Y-%m-%d %H:%M:%S').strftime('%m-%d %H:%M')
         formatted_message = f"[{formatted_timestamp}] -- {content}"
         text_widget.insert(END, formatted_message + "\n")
-    bdd.close()
+    text_widget.configure(state='disabled')
 
 #Fonction affichant les messages reçus (id_utilisateur du bot !=1)
 def display_received_messages(text_widget):
@@ -142,10 +144,12 @@ def display_received_messages(text_widget):
     c = bdd.cursor()
     c.execute("SELECT text_message FROM discussions WHERE id_utilisateur != 1")
     messages = c.fetchall()
+    bdd.close()
+    text_widget.configure(state='normal')
     text_widget.delete('1.0', END)
     for message in messages:
         text_widget.insert(END, message[0] + "\n")
-    bdd.close()
+    text_widget.configure(state='disabled')
 
 
 
