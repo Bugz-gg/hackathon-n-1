@@ -63,7 +63,7 @@ class Page:
         github_frame.pack(side=BOTTOM, pady=30)
         for github_username in github_usernames:
             button = ttk.Button(github_frame, text=github_username,
-                                command=lambda x=github_username: webbrowser.open(f'https://github.com/{x}'),
+                                command=lambda x=github_username: webbrowser.open_new_tab(f'https://github.com/{x}'),
                                 state="enabled")
             button.pack(side=LEFT)
 
@@ -109,7 +109,7 @@ def discussion_content():
                 past += "Now the user says :"
             # print(past)
             reconnect = False
-        output_value = science_tutoring(chat_input=past + entry_value).text + "\n"
+        output_value = get_response(chat_input=past + entry_value).text + "\n"
         timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         bdd = sql.connect('chat.bd')
         c = bdd.cursor()

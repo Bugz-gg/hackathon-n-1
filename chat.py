@@ -47,7 +47,7 @@ aiplatform.init(
 
 chat = None
 
-def science_tutoring(temperature : float = 0.9, chat_input : str = "I want you to remember that there is cheese in the box."):
+def get_response(temperature : float = 0.9, chat_input : str = "I want you to remember that there is cheese in the box."):
 
     global chat
     parameters = {
@@ -232,5 +232,5 @@ def science_tutoring(temperature : float = 0.9, chat_input : str = "I want you t
 
 
 if __name__ == "__main__":
-    science_tutoring()
-    science_tutoring(chat_input="What's in the box ?")
+    get_response()
+    get_response(chat_input="What's in the box ?")
