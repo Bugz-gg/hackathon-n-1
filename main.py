@@ -139,9 +139,9 @@ def discussion_content():
     text_sent_messages.pack(fill=BOTH)
 
     display_messages(text_sent_messages)
-    text_sent_messages.tag_config("color", foreground="green")
-    for k in tab:
-        text_sent_messages.tag_add("color", "{}.0".format(k[0]), "{}.{}".format(k[0], k[1]))
+    # text_sent_messages.tag_config("color", foreground="green")
+    # for k in tab:
+    #     text_sent_messages.tag_add("color", "{}.0".format(k[0]), "{}.{}".format(k[0], k[1]))
     pass
 
 
@@ -162,13 +162,13 @@ def display_messages(text_widget):
         formatted_timestamp = datetime.strptime(timestamp, '%Y-%m-%d %H:%M:%S').strftime('%m-%d %H:%M')
         formatted_message = f"[{formatted_timestamp}] {nom_utilisateur} -- {content}"
         text_widget.insert(END, formatted_message + "\n")
-        if (nom_utilisateur == "Bot"):
-            print(content, nom_utilisateur)
-            global l, i
-            l = len(content)
-            tab.append([i, l])
-            print(l)
-        i += 1
+        # if (nom_utilisateur == "Bot"):
+        #     #print(content, nom_utilisateur)
+        #     global l, i
+        #     l = len(content)
+        #     tab.append([i, l])
+        #     #print(l)
+        # i+=1
     text_widget.see(END)
     text_widget.configure(state='disabled', wrap=WORD)
 
