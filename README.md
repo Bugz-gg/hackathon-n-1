@@ -12,6 +12,11 @@ Fluencia is an AI-powered language learning tool that focuses on conversation-ba
 - User-friendly interface
 - Database integration for chat history
 
+1. Download the appropriate executable for your operating system:
+- [Main Linux Executable]([https://github.com/Bugz-gg/hackathon-n-1/releases/tag/v1](https://github.com/Bugz-gg/hackathon-n-1/releases/download/v1/main_linux_executable))
+- [Main Windows Executable](link_to_windows_executable)
+
+2. Run the executable to launch the Fluencia application.
 
 3. The Fluencia interface will appear, allowing you to interact with the AI language learning tool.
 
