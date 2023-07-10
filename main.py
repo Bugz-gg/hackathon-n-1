@@ -18,13 +18,8 @@ class Page:
     def create_widgets(self, title, content):
         #Personnaliser la fenêtre
         self.master.title(title)
-<<<<<<< HEAD
         self.master.attributes("-fullscreen", True)
         #self.master.minsize(720,480)
-=======
-        #self.master.attributes("-fullscreen", True)
-        self.master.minsize(720,480)
->>>>>>> 97a330a918ff7bf7fda4de3e9541e3dfff059f46
 
         #Création du header, donc de la frame
         button_frame=Frame(self.master)
@@ -110,7 +105,8 @@ def discussion_content():
         display_messages(text_sent_messages)
         entry_string.set("")
         entry.config(textvariable=entry_string)
-
+    global l, i , tab
+    l, i, tab = 0, 0, []
     new_lab = Label(root.master)
 
     entry_string = StringVar()
@@ -123,10 +119,13 @@ def discussion_content():
     global text_sent_messages
     frame_sent_messages = Frame(root.master)
     frame_sent_messages.pack(side=TOP, pady=20)
-    text_sent_messages = Text(frame_sent_messages, height=10, width=50)
-    text_sent_messages.pack()
+    text_sent_messages = Text(frame_sent_messages, font="Calibri 14 bold", foreground="red")
+    text_sent_messages.pack(fill=BOTH)
 
     display_messages(text_sent_messages)
+    text_sent_messages.tag_config("color", foreground="green")
+    for k in tab:
+        text_sent_messages.tag_add("color", "{}.0".format(k[0]), "{}.{}".format(k[0], k[1]))
     pass
 
 #Fonction affichant les messages envoyés (id_utilisateur de l'usager =1)
@@ -146,6 +145,13 @@ def display_messages(text_widget):
         formatted_timestamp = datetime.strptime(timestamp, '%Y-%m-%d %H:%M:%S').strftime('%m-%d %H:%M')
         formatted_message = f"[{formatted_timestamp}] {nom_utilisateur} -- {content}"
         text_widget.insert(END, formatted_message + "\n")
+        if (nom_utilisateur == "Bot"):
+            print(content, nom_utilisateur)
+            global l, i
+            l = len(content)
+            tab.append([i, l]) 
+            print(l)
+        i+=1
     text_widget.see(END)
     text_widget.configure(state='disabled', wrap=WORD)
 
