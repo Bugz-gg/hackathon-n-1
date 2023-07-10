@@ -143,7 +143,7 @@ def discussion_content():
 
 # Fonction affichant les messages envoyés (id_utilisateur de l'usager =1)
 def display_messages(text_widget):
-    l, i, tab = 0, 0, []
+    i, tab =  0, []
     bdd = sql.connect('chat.bd')
     c = bdd.cursor()
     c.execute("SELECT text_message, timestamp_message, id_utilisateur FROM discussions")
@@ -163,12 +163,12 @@ def display_messages(text_widget):
         lines = content.split("\n")
         if nom_utilisateur == "Bot":
 
-            print(lines)
+            #print(lines)
             for index, line in enumerate(lines):
                 i += 1
-                print(line)
+                #print(line)
                 tab.append([i, len(line)+20*int(not index)])
-                print(tab[-1])
+                #print(tab[-1])
         else:
             for _ in lines:
                 i += 1
