@@ -4,6 +4,7 @@ import sqlite3 as sql
 from datetime import *
 from chat import *
 from bdd import create_table
+import webbrowser
 
 try:
     create_table()
@@ -14,6 +15,7 @@ except:
 global text_sent_messages
 reconnect = True
 
+github_usernames = ["Bugz-gg", "Hermes075", "Larwive"]
 
 # Classe principale de la page
 class Page:
@@ -57,6 +59,15 @@ class Page:
 
         content()
 
+        github_frame = Frame(self.master)
+        github_frame.pack(side=BOTTOM, pady=30)
+        for github_username in github_usernames:
+            button = ttk.Button(github_frame, text=github_username,
+                                command=lambda x=github_username: webbrowser.open(f'https://github.com/{x}'),
+                                state="enabled")
+            button.pack(side=LEFT)
+
+
 
 # Ce qui s'affiche lorsqu'on lance l'application pour la première fois
 def main_content():
@@ -64,7 +75,6 @@ def main_content():
                            text="Click on Discussion to start learning english with an amazing english teacher\n  Or click on presentation if you want to learn more about the fluencia project.",
                            font=("Helvetica", 12))
     label_subtitle.pack(side=TOP, pady=50)
-    pass
 
 
 # Fonction qui gère la BDD de la page de discussion
@@ -74,8 +84,8 @@ def discussion_content():
         entry_value = entry_string.get()
 
         formatted_timestamp = datetime.strptime(datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
-                                                '%Y-%m-%d %H:%M:%S').strftime('%m-%d %H:%M')
-        formatted_message = f"[{formatted_timestamp}] You -- {entry_value}"
+                                                '%Y-%m-%d %H:%M:%S').strftime('%m/%d %H:%M')
+        formatted_message = f"[{formatted_timestamp}] You : {entry_value}"
         text_sent_messages.configure(state='normal')
         text_sent_messages.insert(END, formatted_message + "\n")
         text_sent_messages.see(END)
@@ -162,13 +172,9 @@ def display_messages(text_widget):
         text_widget.insert(END, formatted_message + "\n")
         lines = content.split("\n")
         if nom_utilisateur == "Bot":
-
-            print(lines)
             for index, line in enumerate(lines):
                 i += 1
-                print(line)
                 tab.append([i, len(line)+20*int(not index)])
-                print(tab[-1])
         else:
             for _ in lines:
                 i += 1
