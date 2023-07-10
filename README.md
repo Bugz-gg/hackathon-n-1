@@ -35,6 +35,7 @@ Contributions to Fluencia are welcome! If you find any issues or have suggestion
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE).
+This project is not licensed and is provided as-is without any warranty. You are free to use, modify, and distribute the code in this repository for personal or educational purposes. However, please note that without a license, you are not granting any permissions or legal protections to others. Use this code at your own risk.
+
 
 
