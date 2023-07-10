@@ -23,7 +23,7 @@ class Page:
 
         #Création du header, donc de la frame
         button_frame=Frame(self.master)
-        button_frame.pack(side=TOP, pady = 20)
+        button_frame.pack(side=TOP, pady = 30)
 
         for button_title in ["Discussion", "Stats", "Settings", "Presentation"]:
             if button_title == title:
@@ -51,8 +51,8 @@ class Page:
 
 #Ce qui s'affiche lorsqu'on lance l'application pour la première fois
 def main_content():
-    label_subtitle = Label(root.master, text="Appuyez sur une touche. (Ça ne fait rien et c'est normal.)", font=("Helvetica", 20))
-    label_subtitle.pack(side=TOP, pady=25)
+    label_subtitle = Label(root.master, text="Click on Discussion to start learning english with an amazing english teacher\n  Or click on presentation if you want to learn more about the fluencia project.", font=("Helvetica", 12))
+    label_subtitle.pack(side=TOP, pady=50)
     pass
 
 #Fonction qui gère la BDD de la page de discussion
@@ -203,7 +203,7 @@ get_content = {"Main": main_content, "Discussion": discussion_content, "Stats": 
 
 #Création de la fenêtre d'accueil
 root = ttk.Window(themename='darkly')
-displayed_page = Page(root, "Main page", main_content)
+displayed_page = Page(root, "Welcome to Fluencia", main_content)
 
 
 def open_page(title):
