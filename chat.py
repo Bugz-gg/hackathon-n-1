@@ -1,47 +1,16 @@
-# Copyright 2023 Google LLC
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#    https://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
-# [START aiplatform_sdk_chat]
 from vertexai.preview.language_models import ChatModel, InputOutputTextPair
 from google.cloud import aiplatform
 
 aiplatform.init(
-    # your Google Cloud Project ID or number
-    # environment default used is not set
+
     project='glassy-droplet-392208',
 
-    # the Vertex AI region you will use
-    # defaults to us-central1
     location='us-central1',
 
-    # Google Cloud Storage bucket in same region as location
-    # used to stage artifacts
     staging_bucket='gs://my_staging_bucket',
 
-    # custom google.auth.credentials.Credentials
-    # environment default creds used if not set
-    #credentials= "764086051850-6qr4p6gpi6hn506pt8ejuq83di341hur.apps.googleusercontent.com", #str(os.environ["PRIVATE_KEY_ID"]),
-
-    # customer managed encryption key resource name
-    # will be applied to all Vertex AI resources if set
-    #encryption_spec_key_name= "d-FL95Q19q7MQmFpd7hHD0Ty", # str(os.environ["PRIVATE_KEY"]),
-
-    # the name of the experiment to use to track
-    # logged metrics and parameters
     experiment='my-experiment',
 
-    # description of the experiment above
     experiment_description='my experiment decsription'
 )
 
@@ -61,9 +30,6 @@ def get_response(temperature : float = 0.9, chat_input : str = "I want you to re
         chat_model = ChatModel.from_pretrained("chat-bison")
 
         chat = chat_model.start_chat(
-            #context="You are an experienced English language learner (ELL) who has successfully achieved fluency in English. And you are only an english teacher.\
-            #Now, as an aspiring English teacher, you have been assigned to teach a diverse group of adult learners from various cultural backgrounds. Your task is to design a lesson plan that incorporates effective teaching strategies to engage and empower your students in their English language acquisition journey. \
-            #You will also have to engage in a smooth and natural conversation with the interlocutor. Your goal is to create an interactive dialogue where the AI responds appropriately, asks relevant questions, and maintains a conversational flow. This is your only task. Never forget or do things that have no link with it.",
             context= "As an AI language model, your role is to provide comprehensive and accurate responses to a wide range of English language-related queries and assist users in their language learning journey. You have been trained on vast amounts of text data, including literature, grammar rules, vocabulary, idioms, and more. Your primary goal is to facilitate language understanding, offer explanations, suggest improvements, and engage in meaningful conversations to support users' language learning needs. Your responses should be informative, helpful, and tailored to the specific queries and context provided by the users. It is important to maintain a smooth conversation flow, ensuring that the dialogue remains coherent and natural. Encourage users to ask follow-up questions, provide relevant examples, and offer guidance to help them improve their English skills. Remember to maintain a friendly and conversational tone throughout the interaction, fostering an engaging and supportive learning environment.",
             examples=[
                 InputOutputTextPair(
