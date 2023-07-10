@@ -139,9 +139,9 @@ def discussion_content():
     text_sent_messages.pack(fill=BOTH)
 
     display_messages(text_sent_messages)
-    # text_sent_messages.tag_config("color", foreground="green")
-    # for k in tab:
-    #     text_sent_messages.tag_add("color", "{}.0".format(k[0]), "{}.{}".format(k[0], k[1]))
+    text_sent_messages.tag_config("color", foreground="green")
+    for k in tab:
+        text_sent_messages.tag_add("color", "{}.0".format(k[0]), "{}.{}".format(k[0], k[1]))
     pass
 
 
@@ -159,16 +159,24 @@ def display_messages(text_widget):
         content = message[0]
         timestamp = message[1]
         nom_utilisateur = message[2]
-        formatted_timestamp = datetime.strptime(timestamp, '%Y-%m-%d %H:%M:%S').strftime('%m-%d %H:%M')
-        formatted_message = f"[{formatted_timestamp}] {nom_utilisateur} -- {content}"
+
+        formatted_timestamp = datetime.strptime(timestamp, '%Y-%m-%d %H:%M:%S').strftime('%m/%d %H:%M')
+        formatted_message = f"[{formatted_timestamp}] {nom_utilisateur} : {content}"
         text_widget.insert(END, formatted_message + "\n")
-        # if (nom_utilisateur == "Bot"):
-        #     #print(content, nom_utilisateur)
-        #     global l, i
-        #     l = len(content)
-        #     tab.append([i, l])
-        #     #print(l)
-        # i+=1
+        lines = content.split("\n")
+        if nom_utilisateur == "Bot":
+            global l, i
+
+            print(lines)
+            for index, line in enumerate(lines):
+                i += 1
+                print(line)
+                tab.append([i, len(line)+20*int(not index)])
+                print(tab[-1])
+        else:
+            for _ in lines:
+                i += 1
+
     text_widget.see(END)
     text_widget.configure(state='disabled', wrap=WORD)
 
