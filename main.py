@@ -15,7 +15,6 @@ except:
 global text_sent_messages
 reconnect = True
 
-github_usernames = ["Bugz-gg", "Hermes075", "Larwive"]
 
 # Classe principale de la page
 class Page:
@@ -59,13 +58,44 @@ class Page:
 
         content()
 
-        github_frame = Frame(self.master)
-        github_frame.pack(side=BOTTOM, pady=30)
+
+        # footer
+        footer = Frame(self.master, bg='darkgrey')
+
+        contact_info_lk = Label(footer, text="LinkedIn : ", fg="blue", cursor="hand2", font=('Arial', 12))
+        contact_info_lk.pack(side=LEFT, padx=10, pady=10)
+        contact_info_bugz = Label(footer, text="Bugz", fg="blue", cursor="hand2", font=('Arial', 12))
+        contact_info_bugz.pack(side=LEFT, padx=10, pady=10)
+        contact_info_bugz.bind("<Button-1>", lambda event :webbrowser.open("https://www.linkedin.com/in/ilyes-bechoual/"))
+
+        contact_info_larwive = Label(footer, text="Larwive", fg="blue", cursor="hand2", font=('Arial', 12))
+        contact_info_larwive.pack(side=LEFT, padx=10, pady=10)
+        contact_info_larwive.bind("<Button-1>", lambda event : webbrowser.open("https://www.linkedin.com/in/shaokevin/"))
+
+        contact_info_hermes = Label(footer, text="Hermes", fg="blue", cursor="hand2", font=('Arial', 12))
+        contact_info_hermes.pack(side=LEFT, padx=10, pady=10)
+        contact_info_hermes.bind("<Button-1>", lambda event :webbrowser.open("https://www.linkedin.com/in/arthur-rubio/"))
+            
+
+        # Bind the label to the open_link function when clicked
+
+        button_frame = Frame(footer)
+        button_frame.pack(side=RIGHT, padx=10, pady=10)
+
+
+        
+        github_usernames = ["Bugz-gg", "Hermes075", "Larwive"]
         for github_username in github_usernames:
-            button = ttk.Button(github_frame, text=github_username,
-                                command=lambda x=github_username: webbrowser.open_new_tab(f'https://github.com/{x}'),
-                                state="enabled")
-            button.pack(side=LEFT)
+            github = Label(footer, text=github_username,
+                                 fg="blue", cursor="hand2", font=('Arial', 12))
+            github.bind("<Button-1>", lambda event: webbrowser.open(f'https://github.com/{github_username}'))
+            github.pack(side=RIGHT, padx=10, pady=10)
+        contact_info_gh = Label(footer, text="GitHub : ", fg="blue", cursor="hand2", font=('Arial', 12))
+        contact_info_gh.pack(side=RIGHT, padx=10, pady=10)
+
+        footer.pack(fill=X, side=BOTTOM)
+
+
 
 
 
