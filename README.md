@@ -1,4 +1,4 @@
-# hackathon-n-1
+# hackathon n°1
 # Fluencia
 
 ![Fluencia Logo](logo.png)
