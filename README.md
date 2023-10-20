@@ -2,7 +2,8 @@
 
 ![Fluencia Logo](logo.png)
 
-Fluencia is an AI-powered language learning tool that focuses on conversation-based learning. This project aims to provide an interactive and immersive experience for learning English and other languages. The tool utilizes a chat-based interface and incorporates an AI model to facilitate language fluency. Click [here](https://m.youtube.com/watch?v=BVzzJzoFm8g&feature=youtu.be) to see the presentation video about our project.
+Fluencia is an AI-powered language learning tool that focuses on conversation-based learning. This project aims to provide an interactive and immersive experience for learning English and other languages. The tool utilizes a chat-based interface and incorporates an AI model to facilitate language fluency. 
+- **Click [here](https://m.youtube.com/watch?v=BVzzJzoFm8g&feature=youtu.be) to see the presentation video about our project.**
 
 ## Features
 
